@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microvision - Skin Cancer Screening Result</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: #1a202c;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            gap: 20px; /* Reduce gap between elements */
+        }
+        
+        .result-title {
+            flex: 1;
+            max-width: 550px; /* Increased from 500px */
+            padding-top: 30px; /* Move text down a bit */
+            padding-left: 20px; /* Move text to the right a bit */
+        }
+        
+        .doctor-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: #e6f0ff;
+            overflow: hidden;
+            margin-right: 20px; /* Move image to the left */
+        }
+        
+        .doctor-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        h1 {
+            font-size: 3.5rem; /* Increased from 3rem */
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-size: 3.5rem;
+            text-align: center;
+            margin: 3rem 0;
+            font-weight: bold;
+        }
+        
+        /* Add color variations for different results */
+        .benign {
+            color: #10b981; /* Green color for benign */
+        }
+        
+        .malignant {
+            color: #ef4444; /* Red color for malignant */
+        }
+        
+        .result-description {
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 2rem 0;
+            line-height: 1.6;
+        }
+        
+        .next-steps {
+            margin: 4rem 0;
+        }
+        
+        .next-steps h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .next-steps-description {
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 1rem 0 3rem;
+            line-height: 1.6;
+        }
+        
+        .back-button {
+            display: block;
+            background-color: #2563eb;
+            color: white;
+            padding: 1rem;
+            font-size: 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            width: 60%;
+            margin: 2rem auto;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        
+        .back-button:hover {
+            background-color: #1d4ed8;
+        }
+        
+        .disclaimer {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #4a5568;
+            margin-top: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Hide elements based on result */
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .result-header {
+                flex-direction: column;
+            }
+            
+            .doctor-image {
+                margin: 2rem auto;
+            }
+            
+            h1, h2 {
+                text-align: center;
+            }
+            
+            .back-button {
+                width: 100%;
+            }
+            
+            .result-title {
+                padding-left: 0; /* Reset padding on mobile */
+                padding-top: 0; /* Reset padding on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="result-header">
+        <div class="result-title">
+            <h1>Skin Cancer<br>Screening<br>Result</h1>
+        </div>
+        <div class="doctor-image">
+            <img src="HUMIC doctor2.png" alt="Doctor illustration">
+        </div>
+    </div>
+    
+    <!-- Benign result section -->
+    <div id="benignResult">
+        <h2 class="benign">Benign</h2>
+        
+        <p class="result-description">
+            The skin lesion appears to be benign. No signs of skin cancer were detected.
+        </p>
+        
+        <div class="next-steps">
+            <h2>Next Steps</h2>
+            <p class="next-steps-description">
+                Continue to monitor the area and consult a dermatologist if you notice any changes.
+            </p>
+        </div>
+    </div>
+    
+    <!-- Malignant result section -->
+    <div id="malignantResult" class="hidden">
+        <h2 class="malignant">Malignant</h2>
+        
+        <p class="result-description">
+            The skin lesion appears to have characteristics consistent with malignancy. 
+            Signs of potential skin cancer were detected.
+        </p>
+        
+        <div class="next-steps">
+            <h2>Next Steps</h2>
+            <p class="next-steps-description">
+                Please consult with a dermatologist as soon as possible for a professional diagnosis and treatment plan.
+                Early intervention is key for successful treatment of skin cancer.
+            </p>
+        </div>
+    </div>
+    
+    <a href="index.html" class="back-button">Back to Home</a>
+    
+    <p class="disclaimer">
+        Note: This assessment is not a diagnosis. Always consult a healthcare professional for medical advice.
+    </p>
+    
+    <script>
+        // Set this variable to control which result is shown
+        // true = benign, false = malignant
+        const isBenign = true;
+        
+        // Function to show the appropriate result based on the condition
+        function displayResult() {
+            const benignSection = document.getElementById('benignResult');
+            const malignantSection = document.getElementById('malignantResult');
+            
+            if (isBenign) {
+                benignSection.classList.remove('hidden');
+                malignantSection.classList.add('hidden');
+            } else {
+                benignSection.classList.add('hidden');
+                malignantSection.classList.remove('hidden');
+            }
+        }
+        
+        // Call the function when the page loads
+        window.onload = displayResult;
+        
+        /* 
+        BACKEND INTEGRATION NOTES:
+        
+        1. To connect this with a backend:
+           - Create an API endpoint in your server.js that returns the analysis result
+           - When redirecting to results.html, include a query parameter, e.g.:
+             window.location.href = 'results.html?result=' + analysisResult;
+           
+        2. Then replace the static variable with dynamic code like this:
+        
+           // Get the result from URL parameter
+           const urlParams = new URLSearchParams(window.location.search);
+           const isBenign = urlParams.get('result') === 'true';
+           
+        3. Alternative approach with server-side rendering:
+           - Have your server.js render the results.html with the appropriate value
+           - Use a template engine like EJS or Handlebars
+           - Example with EJS:
+             res.render('results', { isBenign: analysisResult });
+        */
+    </script>
+</body>
+</html>
